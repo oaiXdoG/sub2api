@@ -1,3 +1,31 @@
+const warmPrimary = {
+  50: '#fff4ef',
+  100: '#ffe5d9',
+  200: '#ffc8b3',
+  300: '#f4a184',
+  400: '#df8a6c',
+  500: '#d9795a',
+  600: '#bd5f42',
+  700: '#984933',
+  800: '#713526',
+  900: '#4f241b',
+  950: '#2d130d'
+}
+
+const warmNeutral = {
+  50: '#f6f4ef',
+  100: '#e8e3da',
+  200: '#d2cabd',
+  300: '#b7ad9f',
+  400: '#92887c',
+  500: '#746b60',
+  600: '#585149',
+  700: '#3a3833',
+  800: '#23221f',
+  900: '#171614',
+  950: '#11100e'
+}
+
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
@@ -5,48 +33,23 @@ export default {
   theme: {
     extend: {
       colors: {
-        // 主色调 - Teal/Cyan 青色系
-        primary: {
-          50: '#f0fdfa',
-          100: '#ccfbf1',
-          200: '#99f6e4',
-          300: '#5eead4',
-          400: '#2dd4bf',
-          500: '#14b8a6',
-          600: '#0d9488',
-          700: '#0f766e',
-          800: '#115e59',
-          900: '#134e4a',
-          950: '#042f2e'
-        },
-        // 辅助色 - 深蓝灰
-        accent: {
-          50: '#f8fafc',
-          100: '#f1f5f9',
-          200: '#e2e8f0',
-          300: '#cbd5e1',
-          400: '#94a3b8',
-          500: '#64748b',
-          600: '#475569',
-          700: '#334155',
-          800: '#1e293b',
-          900: '#0f172a',
-          950: '#020617'
-        },
-        // 深色模式背景
-        dark: {
-          50: '#f8fafc',
-          100: '#f1f5f9',
-          200: '#e2e8f0',
-          300: '#cbd5e1',
-          400: '#94a3b8',
-          500: '#64748b',
-          600: '#475569',
-          700: '#334155',
-          800: '#1e293b',
-          900: '#0f172a',
-          950: '#020617'
-        }
+        // 主色调 - 暖橙/珊瑚色系
+        primary: warmPrimary,
+        // 辅助色 - 暖棕灰
+        accent: warmNeutral,
+        // 深色模式背景 - 暖黑
+        dark: warmNeutral,
+        // 兼容旧页面里直接写的 Tailwind 默认色名，避免到处逐个改 class。
+        gray: warmNeutral,
+        slate: warmNeutral,
+        zinc: warmNeutral,
+        neutral: warmNeutral,
+        blue: warmPrimary,
+        sky: warmPrimary,
+        cyan: warmPrimary,
+        teal: warmPrimary,
+        indigo: warmPrimary,
+        purple: warmPrimary
       },
       fontFamily: {
         sans: [
@@ -65,22 +68,22 @@ export default {
         mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'monospace']
       },
       boxShadow: {
-        glass: '0 8px 32px rgba(0, 0, 0, 0.08)',
-        'glass-sm': '0 4px 16px rgba(0, 0, 0, 0.06)',
-        glow: '0 0 20px rgba(20, 184, 166, 0.25)',
-        'glow-lg': '0 0 40px rgba(20, 184, 166, 0.35)',
-        card: '0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.06)',
-        'card-hover': '0 10px 40px rgba(0, 0, 0, 0.08)',
-        'inner-glow': 'inset 0 1px 0 rgba(255, 255, 255, 0.1)'
+        glass: '0 12px 40px rgba(0, 0, 0, 0.18)',
+        'glass-sm': '0 6px 18px rgba(0, 0, 0, 0.14)',
+        glow: '0 0 22px rgba(223, 138, 108, 0.22)',
+        'glow-lg': '0 0 44px rgba(223, 138, 108, 0.30)',
+        card: '0 18px 50px rgba(0, 0, 0, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.03)',
+        'card-hover': '0 22px 60px rgba(0, 0, 0, 0.24)',
+        'inner-glow': 'inset 0 1px 0 rgba(255, 255, 255, 0.06)'
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'gradient-primary': 'linear-gradient(135deg, #14b8a6 0%, #0d9488 100%)',
-        'gradient-dark': 'linear-gradient(135deg, #1e293b 0%, #0f172a 100%)',
+        'gradient-primary': 'linear-gradient(135deg, #f4a184 0%, #bd5f42 100%)',
+        'gradient-dark': 'linear-gradient(135deg, #23221f 0%, #11100e 100%)',
         'gradient-glass':
-          'linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%)',
+          'linear-gradient(135deg, rgba(246,244,239,0.08) 0%, rgba(246,244,239,0.03) 100%)',
         'mesh-gradient':
-          'radial-gradient(at 40% 20%, rgba(20, 184, 166, 0.12) 0px, transparent 50%), radial-gradient(at 80% 0%, rgba(6, 182, 212, 0.08) 0px, transparent 50%), radial-gradient(at 0% 50%, rgba(20, 184, 166, 0.08) 0px, transparent 50%)'
+          'radial-gradient(at 38% 0%, rgba(223, 138, 108, 0.10) 0px, transparent 45%), radial-gradient(at 82% 8%, rgba(180, 126, 74, 0.08) 0px, transparent 42%), radial-gradient(at 0% 58%, rgba(113, 53, 38, 0.12) 0px, transparent 45%)'
       },
       animation: {
         'fade-in': 'fadeIn 0.3s ease-out',
@@ -118,8 +121,8 @@ export default {
           '100%': { backgroundPosition: '200% 0' }
         },
         glow: {
-          '0%': { boxShadow: '0 0 20px rgba(20, 184, 166, 0.25)' },
-          '100%': { boxShadow: '0 0 30px rgba(20, 184, 166, 0.4)' }
+          '0%': { boxShadow: '0 0 20px rgba(223, 138, 108, 0.22)' },
+          '100%': { boxShadow: '0 0 30px rgba(223, 138, 108, 0.34)' }
         }
       },
       backdropBlur: {

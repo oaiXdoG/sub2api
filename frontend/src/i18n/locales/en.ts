@@ -10,9 +10,28 @@ export default {
     login: 'Login',
     getStarted: 'Get Started',
     goToDashboard: 'Go to Dashboard',
+    viewChoices: 'View Options',
+    badge: 'easyAI Service Hub',
+    heroTitle: 'Fast and stable AI access',
     // User-focused value proposition
-    heroSubtitle: 'One Key, All AI Models',
-    heroDescription: 'No need to manage multiple subscriptions. Access Claude, GPT, Gemini and more with a single API key',
+    heroSubtitle: 'Fast and stable AI access',
+    heroDescription: 'Use multiple AI capabilities from one account for chat, coding help, content work, and frequent calls.',
+    statusPanel: {
+      eyebrow: 'Service Status',
+      title: 'Clear, stable, flexible',
+      state: 'Live',
+      stableTitle: 'Stable Access',
+      stableDesc: 'A unified entry helps reduce the impact of individual channel instability.',
+      choiceTitle: 'Multiple Options',
+      choiceDesc: 'Choose a suitable service option for light use or higher-frequency work.',
+      usageTitle: 'Clear Quotas',
+      usageDesc: 'Balance, usage records, and account status are shown in one place.',
+      resetTitle: 'Clear Rules',
+      resetDesc: 'Quota rules are displayed clearly to avoid confusion during use.'
+    },
+    featuresEyebrow: 'Core Experience',
+    featuresTitle: 'Common AI capabilities in one account',
+    featuresDescription: 'Manage chat, coding help, content work, and frequent calls with a clearer and more stable experience.',
     tags: {
       subscriptionToApi: 'Subscription to API',
       stickySession: 'Session Persistence',
@@ -51,7 +70,26 @@ export default {
       multiAccount: 'Always Reliable',
       multiAccountDesc: 'Smart routing across multiple upstream accounts with automatic failover. Say goodbye to errors.',
       balanceQuota: 'Pay What You Use',
-      balanceQuotaDesc: 'Usage-based billing with quota limits. Full visibility into team consumption.'
+      balanceQuotaDesc: 'Usage-based billing with quota limits. Full visibility into team consumption.',
+      fastTitle: 'Quick Start',
+      fastDesc: 'Log in to enter the console and view account status, usage records, and available entries.',
+      stableTitle: 'Stable Experience',
+      stableDesc: 'Unified management for daily use and frequent calls reduces tool-switching overhead.',
+      controlTitle: 'Clear Control',
+      controlDesc: 'Balance, quotas, subscriptions, and redemption records are easier to review in one place.'
+    },
+    scenarios: {
+      eyebrow: 'Use Cases',
+      title: 'Built for common AI workflows',
+      description: 'The home page stays focused so users can quickly understand what the service is for.',
+      chatTitle: 'Daily Chat',
+      chatDesc: 'For research, Q&A, translation, and light productivity assistance.',
+      codeTitle: 'Coding Help',
+      codeDesc: 'Use it for code explanation, debugging, scripts, and technical planning.',
+      contentTitle: 'Content Work',
+      contentDesc: 'Supports copywriting, summaries, rewriting, and structured organization.',
+      choiceTitle: 'Multiple Options',
+      choiceDesc: 'After login, choose a service option that matches your usage level.'
     },
     // Comparison section
     comparison: {

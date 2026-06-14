@@ -10,9 +10,28 @@ export default {
     login: '登录',
     getStarted: '立即开始',
     goToDashboard: '进入控制台',
+    viewChoices: '查看服务选择',
+    badge: 'easyAI 服务入口',
+    heroTitle: '快速又稳定的 AI 服务入口',
     // 新增：面向用户的价值主张
-    heroSubtitle: '一个密钥，畅用多个 AI 模型',
-    heroDescription: '无需管理多个订阅账号，一站式接入 Claude、GPT、Gemini 等主流 AI 服务',
+    heroSubtitle: '快速又稳定的 AI 服务入口',
+    heroDescription: '一个账号即可使用多种 AI 能力，适合日常对话、代码辅助、内容处理和高频调用。',
+    statusPanel: {
+      eyebrow: 'Service Status',
+      title: '清晰、稳定、可选择',
+      state: '运行中',
+      stableTitle: '稳定访问',
+      stableDesc: '统一入口降低单一渠道波动对使用体验的影响。',
+      choiceTitle: '多种选择',
+      choiceDesc: '根据使用强度选择合适方案，轻量使用和高频使用都能覆盖。',
+      usageTitle: '额度清楚',
+      usageDesc: '账户余额、用量记录和状态集中展示，方便随时查看。',
+      resetTitle: '规则明确',
+      resetDesc: '额度规则清晰展示，避免使用过程中产生误解。'
+    },
+    featuresEyebrow: 'Core Experience',
+    featuresTitle: '把常用 AI 能力集中到一个账号',
+    featuresDescription: '统一管理日常对话、代码辅助、内容处理和高频调用，让使用过程更清晰、更稳定。',
     tags: {
       subscriptionToApi: '订阅转 API',
       stickySession: '会话保持',
@@ -51,7 +70,26 @@ export default {
       multiAccount: '稳定可靠',
       multiAccountDesc: '智能调度多个上游账号，自动切换和负载均衡，告别频繁报错。',
       balanceQuota: '用多少付多少',
-      balanceQuotaDesc: '按实际使用量计费，支持设置配额上限，团队用量一目了然。'
+      balanceQuotaDesc: '按实际使用量计费，支持设置配额上限，团队用量一目了然。',
+      fastTitle: '快速开始',
+      fastDesc: '登录后即可进入控制台，查看账户状态、使用记录和可用入口。',
+      stableTitle: '稳定体验',
+      stableDesc: '面向日常使用和高频调用做统一管理，减少频繁切换工具的成本。',
+      controlTitle: '清晰可控',
+      controlDesc: '余额、额度、订阅和兑换记录集中展示，使用情况更容易判断。'
+    },
+    scenarios: {
+      eyebrow: 'Use Cases',
+      title: '覆盖常见 AI 使用场景',
+      description: '不把首页做成复杂说明书，只让用户快速理解这个服务能解决什么问题。',
+      chatTitle: '日常对话',
+      chatDesc: '适合搜索整理、问答、翻译和轻量办公辅助。',
+      codeTitle: '代码辅助',
+      codeDesc: '用于代码解释、问题排查、脚本生成和方案梳理。',
+      contentTitle: '内容处理',
+      contentDesc: '支持文案、摘要、改写、结构化整理等工作流。',
+      choiceTitle: '多种选择',
+      choiceDesc: '登录后按自己的使用强度选择合适服务方式。'
     },
     // 优势对比
     comparison: {
