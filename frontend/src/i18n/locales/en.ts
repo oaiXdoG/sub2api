@@ -6961,6 +6961,7 @@ export default {
     currentBalance: 'Current Balance',
     groupFallback: 'Group #{id}',
     rechargeAccount: 'Recharge Account',
+    manualRechargeHint: 'Follow the instructions to order or contact support, then redeem the code after delivery.',
     activeSubscription: 'Active Subscription',
     noActiveSubscription: 'No active subscription',
     tabTopUp: 'Top Up',

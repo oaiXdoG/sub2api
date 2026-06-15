@@ -206,12 +206,46 @@
             </template>
           </template>
         </template>
-        <div v-if="(checkout.help_text || checkout.help_image_url) && paymentPhase === 'select' && !selectedPlan" class="card p-4">
-          <div class="flex flex-col items-center gap-3">
-            <img v-if="checkout.help_image_url" :src="checkout.help_image_url" alt=""
-              class="h-40 max-w-full cursor-pointer rounded-lg object-contain transition-opacity hover:opacity-80"
-              @click="previewImage = checkout.help_image_url" />
-            <p v-if="checkout.help_text" class="whitespace-pre-line text-center text-sm leading-relaxed text-gray-500 dark:text-gray-400">{{ checkout.help_text }}</p>
+        <div
+          v-if="(checkout.help_text || checkout.help_image_url) && paymentPhase === 'select' && !selectedPlan"
+          class="relative overflow-hidden rounded-2xl border border-primary-300/80 bg-primary-50/90 p-5 shadow-glow dark:border-primary-500/40 dark:bg-primary-950/35"
+        >
+          <div class="pointer-events-none absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-primary-300 via-primary-500 to-primary-300"></div>
+          <div class="flex flex-col gap-5 md:flex-row md:items-center">
+            <button
+              v-if="checkout.help_image_url"
+              type="button"
+              class="mx-auto shrink-0 rounded-2xl border border-white/70 bg-white p-3 shadow-lg shadow-primary-950/10 transition-transform hover:-translate-y-0.5 dark:border-primary-700/50 dark:bg-dark-900"
+              @click="previewImage = checkout.help_image_url"
+            >
+              <img
+                :src="checkout.help_image_url"
+                alt=""
+                class="h-44 w-44 max-w-full object-contain"
+              />
+            </button>
+            <div class="min-w-0 flex-1 text-center md:text-left">
+              <div
+                v-if="checkout.help_text"
+                class="space-y-1 whitespace-pre-line text-base font-medium leading-8 text-primary-950 dark:text-primary-100"
+              >
+                <template v-for="(part, index) in helpTextParts" :key="index">
+                  <a
+                    v-if="part.href"
+                    :href="part.href"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="break-all rounded-md bg-primary-100 px-1.5 py-0.5 font-semibold text-primary-700 underline decoration-primary-400/50 underline-offset-4 hover:text-primary-900 dark:bg-primary-900/60 dark:text-primary-200 dark:hover:text-white"
+                  >
+                    {{ part.text }}
+                  </a>
+                  <span v-else>{{ part.text }}</span>
+                </template>
+              </div>
+              <p class="mt-3 text-xs text-primary-700/80 dark:text-primary-200/70">
+                {{ t('payment.manualRechargeHint') }}
+              </p>
+            </div>
           </div>
         </div>
       </template>
@@ -479,6 +513,30 @@ function onPaymentSettled() {
 const checkout = ref<CheckoutInfoResponse>({
   methods: {}, global_min: 0, global_max: 0,
   plans: [], balance_disabled: false, balance_recharge_multiplier: 1, recharge_fee_rate: 0, help_text: '', help_image_url: '', stripe_publishable_key: '',
+})
+
+const URL_PATTERN = /(https?:\/\/[^\s]+)/g
+
+const helpTextParts = computed(() => {
+  const text = checkout.value.help_text || ''
+  const parts: Array<{ text: string; href?: string }> = []
+  let lastIndex = 0
+
+  for (const match of text.matchAll(URL_PATTERN)) {
+    const url = match[0]
+    const index = match.index ?? 0
+    if (index > lastIndex) {
+      parts.push({ text: text.slice(lastIndex, index) })
+    }
+    parts.push({ text: url, href: url })
+    lastIndex = index + url.length
+  }
+
+  if (lastIndex < text.length) {
+    parts.push({ text: text.slice(lastIndex) })
+  }
+
+  return parts
 })
 
 const tabs = computed(() => {

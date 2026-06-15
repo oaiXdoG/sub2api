@@ -7141,6 +7141,7 @@ export default {
     currentBalance: '当前余额',
     groupFallback: '分组 #{id}',
     rechargeAccount: '充值账户',
+    manualRechargeHint: '请按提示下单或联系客服，兑换码到账后可在兑换页面使用。',
     activeSubscription: '当前订阅',
     noActiveSubscription: '暂无有效订阅',
     tabTopUp: '充值',
