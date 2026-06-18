@@ -349,8 +349,9 @@ function renderMarkdown(content: string): string {
   return DOMPurify.sanitize(html)
 }
 
-function openModal() {
+async function openModal() {
   isModalOpen.value = true
+  await announcementStore.fetchAnnouncements(true)
 }
 
 function closeModal() {
