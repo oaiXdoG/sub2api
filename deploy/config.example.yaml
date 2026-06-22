@@ -234,10 +234,10 @@ gateway:
   # 如需保留客户端 system 提示词，请在模板中显式包含 {{ .ExistingInstructions }}。
   # 若省略，则模板输出会完全覆盖它。
   #
-  # Docker users can mount a host file to /app/data/codex-instructions.md.tmpl
-  # and point this field there.
-  # Docker 用户可将宿主机文件挂载到 /app/data/codex-instructions.md.tmpl，
-  # 然后把本字段指向该路径。
+  # Set this to an absolute template path on the host, for example:
+  # /opt/easyai/data/codex-instructions.md.tmpl
+  # 可填写宿主机上的模板绝对路径，例如：
+  # /opt/easyai/data/codex-instructions.md.tmpl
   forced_codex_instructions_template_file: ""
   # OpenAI 透传模式是否放行客户端超时头（如 x-stainless-timeout）
   # 默认 false：过滤超时头，降低上游提前断流风险。
@@ -490,8 +490,8 @@ log:
   # 堆栈输出阈值：none/error/fatal
   stacktrace_level: "error"
   output:
-    # Keep stdout/stderr output for container log collection
-    # 保持标准输出用于容器日志采集
+    # Keep stdout/stderr output for systemd journal collection
+    # 保持标准输出用于 systemd journal 采集
     to_stdout: true
     # Enable file output (default path auto-derived)
     # 启用文件输出（默认路径自动推导）

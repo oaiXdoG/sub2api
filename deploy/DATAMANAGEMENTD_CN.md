@@ -54,25 +54,11 @@ sudo ./deploy/install-datamanagementd.sh --binary /path/to/datamanagementd
 sudo ./deploy/install-datamanagementd.sh --source /path/to/sub2api
 ```
 
-## 4. Docker 部署联动
-
-若 `sub2api` 运行在 Docker 容器中，需要将宿主机 Socket 挂载到容器同路径：
-
-```yaml
-services:
-  sub2api:
-    volumes:
-      - /tmp/sub2api-datamanagement.sock:/tmp/sub2api-datamanagement.sock
-```
-
-建议在 `docker-compose.override.yml` 中维护该挂载，避免覆盖主 compose 文件。
-
-## 5. 依赖检查
+## 4. 依赖检查
 
 `datamanagementd` 执行备份时依赖以下工具：
 
 - `pg_dump`
 - `redis-cli`
-- `docker`（仅 `source_mode=docker_exec` 时）
 
 缺失依赖会导致对应任务失败，并在任务详情中体现错误信息。
