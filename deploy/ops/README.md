@@ -72,7 +72,40 @@ DEPLOY_TARGET=us1 ./deploy/ops/deploy-all.sh
 
 顺序：打包后端、打包前端、发布后端、发布前端。
 
-## 6. 备份
+## 6. 从 main 同步、构建、部署
+
+这些脚本按职责拆开，可以单独运行，也可以一键串起来。
+
+只同步代码：
+
+```bash
+./deploy/ops/update-us1-from-main.sh
+```
+
+顺序：检查工作区、切到 `main` 拉取、切回 `my-main` 合并。  
+如果有冲突会立刻停止并列出冲突文件。
+
+只构建本地发布包：
+
+```bash
+./deploy/ops/build-packages.sh
+```
+
+只上传已经构建好的包，并重启/重载服务：
+
+```bash
+DEPLOY_TARGET=us1 ./deploy/ops/deploy-packages.sh
+```
+
+一键完整执行：
+
+```bash
+DEPLOY_TARGET=us1 ./deploy/ops/release-us1-from-main.sh
+```
+
+顺序：同步 `main` 到 `my-main`、构建前后端包、上传到 `us1` 并重启/重载服务。
+
+## 7. 备份
 
 备份默认保存在目标机器 `/root/sub2api-backups/` 下。
 
