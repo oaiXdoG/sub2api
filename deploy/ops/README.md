@@ -76,13 +76,14 @@ DEPLOY_TARGET=us1 ./deploy/ops/deploy-all.sh
 
 这些脚本按职责拆开，可以单独运行，也可以一键串起来。
 
-只同步代码：
+同步官方仓库、更新 Fork 的 `main`，并合并到本地工作分支：
 
 ```bash
 ./deploy/ops/update-us1-from-main.sh
 ```
 
-顺序：检查工作区、切到 `main` 拉取、切回 `my-main` 合并。  
+顺序：检查工作区、拉取官方 `upstream/main`、快进本地 `main`、推送到 Fork 的 `origin/main`、切回 `my-main` 合并。
+首次运行时会自动添加 `upstream` 远程仓库，不再需要在 GitHub 页面点击 `Sync fork`。
 如果有冲突会立刻停止并列出冲突文件。
 
 只构建本地发布包：

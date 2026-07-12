@@ -1,0 +1,11 @@
+[Unit]
+Description=Run compressed database backup hourly
+
+[Timer]
+OnCalendar=*-*-* *:05:00
+Persistent=true
+RandomizedDelaySec=30
+Unit=archive-source-backup.service
+
+[Install]
+WantedBy=timers.target

@@ -1,0 +1,11 @@
+[Unit]
+Description=Archive received database backups hourly
+
+[Timer]
+OnCalendar=*-*-* *:15:00
+Persistent=true
+RandomizedDelaySec=30
+Unit=archive-destination.service
+
+[Install]
+WantedBy=timers.target

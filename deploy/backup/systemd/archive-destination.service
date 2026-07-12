@@ -1,0 +1,10 @@
+[Unit]
+Description=Verify, archive, and prune received database backups
+After=local-fs.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/sbin/archive-destination
+Nice=10
+IOSchedulingClass=best-effort
+IOSchedulingPriority=7

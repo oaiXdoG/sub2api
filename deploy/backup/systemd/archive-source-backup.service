@@ -1,0 +1,11 @@
+[Unit]
+Description=Create and upload compressed database backup
+After=network-online.target postgresql.service
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/sbin/archive-source-backup
+Nice=10
+IOSchedulingClass=best-effort
+IOSchedulingPriority=7

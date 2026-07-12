@@ -1,0 +1,669 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>用户控制台首页概念稿</title>
+    <style>
+      :root {
+        --bg: #f5f7fb;
+        --panel: #ffffff;
+        --panel-soft: #f9fbff;
+        --text: #172033;
+        --muted: #687385;
+        --line: #dde4ef;
+        --primary: #2563eb;
+        --primary-soft: #e8f0ff;
+        --success: #0f9f6e;
+        --warning: #d97706;
+        --danger: #dc2626;
+        --shadow: 0 14px 36px rgba(24, 35, 58, 0.08);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+        font-family:
+          Inter,
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          "Microsoft YaHei",
+          sans-serif;
+      }
+
+      .app {
+        min-height: 100vh;
+      }
+
+      .topbar {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 64px;
+        padding: 0 32px;
+        border-bottom: 1px solid var(--line);
+        background: rgba(255, 255, 255, 0.88);
+        backdrop-filter: blur(14px);
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-weight: 800;
+        font-size: 18px;
+      }
+
+      .logo {
+        display: grid;
+        place-items: center;
+        width: 36px;
+        height: 36px;
+        border-radius: 10px;
+        background: linear-gradient(135deg, #2563eb, #22c55e);
+        color: #fff;
+        font-size: 15px;
+        font-weight: 900;
+      }
+
+      .top-actions {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        color: var(--muted);
+        font-size: 14px;
+      }
+
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        height: 34px;
+        padding: 0 12px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: #fff;
+        color: var(--text);
+        font-weight: 650;
+      }
+
+      .avatar {
+        display: grid;
+        place-items: center;
+        width: 36px;
+        height: 36px;
+        border-radius: 999px;
+        background: #24324d;
+        color: #fff;
+        font-weight: 800;
+      }
+
+      .page {
+        max-width: 1180px;
+        margin: 0 auto;
+        padding: 32px 24px 56px;
+      }
+
+      .hero {
+        display: grid;
+        grid-template-columns: minmax(0, 1.35fr) 360px;
+        gap: 24px;
+        align-items: stretch;
+        margin-bottom: 24px;
+      }
+
+      .welcome,
+      .account-card,
+      .section,
+      .service-card,
+      .activity-card {
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        background: var(--panel);
+        box-shadow: var(--shadow);
+      }
+
+      .welcome {
+        padding: 30px;
+      }
+
+      .eyebrow {
+        margin: 0 0 10px;
+        color: var(--primary);
+        font-weight: 800;
+        font-size: 13px;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: 30px;
+        letter-spacing: 0;
+      }
+
+      .subtitle {
+        max-width: 620px;
+        margin: 12px 0 24px;
+        color: var(--muted);
+        line-height: 1.7;
+      }
+
+      .primary-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        height: 40px;
+        padding: 0 16px;
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        background: #fff;
+        color: var(--text);
+        font-weight: 750;
+        text-decoration: none;
+      }
+
+      .btn.primary {
+        border-color: var(--primary);
+        background: var(--primary);
+        color: #fff;
+      }
+
+      .account-card {
+        padding: 24px;
+      }
+
+      .status-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 18px;
+      }
+
+      .status-dot {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        color: var(--success);
+        font-size: 13px;
+        font-weight: 750;
+      }
+
+      .status-dot::before {
+        content: "";
+        width: 8px;
+        height: 8px;
+        border-radius: 999px;
+        background: var(--success);
+      }
+
+      .balance {
+        margin: 0 0 4px;
+        font-size: 34px;
+        font-weight: 900;
+      }
+
+      .muted {
+        color: var(--muted);
+        font-size: 14px;
+      }
+
+      .mini-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+        margin-top: 20px;
+      }
+
+      .mini-stat {
+        padding: 14px;
+        border-radius: 12px;
+        background: var(--panel-soft);
+      }
+
+      .mini-stat strong {
+        display: block;
+        margin-bottom: 5px;
+        font-size: 18px;
+      }
+
+      .metrics {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 16px;
+        margin-bottom: 24px;
+      }
+
+      .metric {
+        min-height: 112px;
+        padding: 20px;
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        background: var(--panel);
+      }
+
+      .metric span {
+        color: var(--muted);
+        font-size: 14px;
+      }
+
+      .metric strong {
+        display: block;
+        margin-top: 10px;
+        font-size: 25px;
+      }
+
+      .metric small {
+        display: block;
+        margin-top: 8px;
+        color: var(--success);
+      }
+
+      .section {
+        padding: 24px;
+        margin-bottom: 24px;
+      }
+
+      .section-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        margin-bottom: 18px;
+      }
+
+      h2 {
+        margin: 0;
+        font-size: 19px;
+      }
+
+      .quick-grid {
+        display: grid;
+        grid-template-columns: repeat(8, minmax(0, 1fr));
+        gap: 12px;
+      }
+
+      .quick-link {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 10px;
+        min-height: 92px;
+        padding: 16px;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        background: var(--panel-soft);
+        color: var(--text);
+        text-decoration: none;
+        font-weight: 750;
+      }
+
+      .quick-link span:first-child {
+        display: grid;
+        place-items: center;
+        width: 34px;
+        height: 34px;
+        border-radius: 10px;
+        background: var(--primary-soft);
+        color: var(--primary);
+      }
+
+      .service-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 16px;
+      }
+
+      .service-card {
+        padding: 20px;
+        box-shadow: none;
+      }
+
+      .service-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 16px;
+      }
+
+      .service-icon {
+        display: grid;
+        place-items: center;
+        width: 42px;
+        height: 42px;
+        border-radius: 12px;
+        background: #111827;
+        color: #fff;
+        font-weight: 900;
+      }
+
+      .tag {
+        display: inline-flex;
+        align-items: center;
+        height: 26px;
+        padding: 0 9px;
+        border-radius: 999px;
+        background: #ecfdf5;
+        color: var(--success);
+        font-size: 12px;
+        font-weight: 800;
+      }
+
+      .service-card h3 {
+        margin: 0 0 8px;
+        font-size: 17px;
+      }
+
+      .service-card p {
+        min-height: 44px;
+        margin: 0 0 16px;
+        color: var(--muted);
+        line-height: 1.55;
+        font-size: 14px;
+      }
+
+      .service-meta {
+        display: flex;
+        justify-content: space-between;
+        padding-top: 14px;
+        border-top: 1px solid var(--line);
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      .lower {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 360px;
+        gap: 24px;
+      }
+
+      .activity-card {
+        padding: 18px 20px;
+        box-shadow: none;
+      }
+
+      .activity-list {
+        display: grid;
+        gap: 12px;
+      }
+
+      .activity-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        padding: 14px 0;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .activity-item:last-child {
+        border-bottom: 0;
+      }
+
+      .activity-item strong {
+        display: block;
+        margin-bottom: 4px;
+      }
+
+      .notice {
+        display: grid;
+        gap: 12px;
+      }
+
+      .notice-item {
+        padding: 14px;
+        border-radius: 12px;
+        background: var(--panel-soft);
+      }
+
+      .notice-item strong {
+        display: block;
+        margin-bottom: 6px;
+      }
+
+      @media (max-width: 980px) {
+        .hero,
+        .lower {
+          grid-template-columns: 1fr;
+        }
+
+        .metrics,
+        .service-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .quick-grid {
+          grid-template-columns: repeat(4, minmax(0, 1fr));
+        }
+      }
+
+      @media (max-width: 640px) {
+        .topbar {
+          padding: 0 16px;
+        }
+
+        .top-actions .pill:nth-child(2),
+        .top-actions .pill:nth-child(3) {
+          display: none;
+        }
+
+        .page {
+          padding: 20px 14px 36px;
+        }
+
+        .welcome {
+          padding: 22px;
+        }
+
+        h1 {
+          font-size: 24px;
+        }
+
+        .metrics,
+        .service-grid,
+        .quick-grid,
+        .mini-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="app">
+      <header class="topbar">
+        <div class="brand">
+          <div class="logo">AI</div>
+          <span>EasyAI</span>
+        </div>
+        <div class="top-actions">
+          <div class="pill">通知 3</div>
+          <div class="pill">余额 $2.00</div>
+          <div class="pill">ZH</div>
+          <div class="avatar">O</div>
+        </div>
+      </header>
+
+      <main class="page">
+        <section class="hero">
+          <div class="welcome">
+            <p class="eyebrow">用户控制台</p>
+            <h1>下午好，oaixdog</h1>
+            <p class="subtitle">
+              这里集中展示账户状态、常用入口和可用 AI 服务。你可以快速创建 API Key、充值余额、查看调用记录或继续管理订阅。
+            </p>
+            <div class="primary-actions">
+              <a class="btn primary" href="#">创建 API Key</a>
+              <a class="btn" href="#">充值余额</a>
+              <a class="btn" href="#">购买订阅</a>
+            </div>
+          </div>
+
+          <aside class="account-card">
+            <div class="status-row">
+              <span class="status-dot">服务正常</span>
+              <span class="muted">普通会员</span>
+            </div>
+            <p class="balance">$2.00</p>
+            <div class="muted">当前账户余额</div>
+            <div class="mini-grid">
+              <div class="mini-stat">
+                <strong>2 个</strong>
+                <span class="muted">API Key</span>
+              </div>
+              <div class="mini-stat">
+                <strong>200M</strong>
+                <span class="muted">本月额度</span>
+              </div>
+            </div>
+          </aside>
+        </section>
+
+        <section class="metrics">
+          <div class="metric">
+            <span>今日调用</span>
+            <strong>12.8M</strong>
+            <small>较昨日 +8%</small>
+          </div>
+          <div class="metric">
+            <span>本月调用</span>
+            <strong>340M</strong>
+            <small>额度使用 42%</small>
+          </div>
+          <div class="metric">
+            <span>当前订阅</span>
+            <strong>普通会员</strong>
+            <small>可随时升级</small>
+          </div>
+          <div class="metric">
+            <span>最近订单</span>
+            <strong>已完成</strong>
+            <small>2026-07-03</small>
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-head">
+            <h2>常用入口</h2>
+            <span class="muted">保留原功能页面，这里只做快捷访问</span>
+          </div>
+          <div class="quick-grid">
+            <a class="quick-link" href="#"><span>🔑</span><span>API 密钥</span></a>
+            <a class="quick-link" href="#"><span>📈</span><span>使用记录</span></a>
+            <a class="quick-link" href="#"><span>🧾</span><span>我的订单</span></a>
+            <a class="quick-link" href="#"><span>💳</span><span>充值中心</span></a>
+            <a class="quick-link" href="#"><span>👑</span><span>订阅管理</span></a>
+            <a class="quick-link" href="#"><span>📡</span><span>渠道状态</span></a>
+            <a class="quick-link" href="#"><span>📘</span><span>接入文档</span></a>
+            <a class="quick-link" href="#"><span>💬</span><span>联系客服</span></a>
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-head">
+            <h2>可用 AI 服务</h2>
+            <span class="muted">展示服务能力，点击后进入原有接入或密钥页面</span>
+          </div>
+          <div class="service-grid">
+            <article class="service-card">
+              <div class="service-top">
+                <div class="service-icon">C</div>
+                <span class="tag">可用</span>
+              </div>
+              <h3>Claude</h3>
+              <p>适合代码、长文本、复杂推理和内容处理。</p>
+              <div class="service-meta"><span>倍率 x1.2</span><strong>查看接入</strong></div>
+            </article>
+            <article class="service-card">
+              <div class="service-top">
+                <div class="service-icon">O</div>
+                <span class="tag">可用</span>
+              </div>
+              <h3>OpenAI</h3>
+              <p>适合通用对话、工具调用、图片和多模态场景。</p>
+              <div class="service-meta"><span>倍率 x0.8</span><strong>查看接入</strong></div>
+            </article>
+            <article class="service-card">
+              <div class="service-top">
+                <div class="service-icon">G</div>
+                <span class="tag">可用</span>
+              </div>
+              <h3>Gemini</h3>
+              <p>适合长上下文、多模态理解和轻量任务。</p>
+              <div class="service-meta"><span>倍率 x0.6</span><strong>查看接入</strong></div>
+            </article>
+            <article class="service-card">
+              <div class="service-top">
+                <div class="service-icon">X</div>
+                <span class="tag">可用</span>
+              </div>
+              <h3>Grok</h3>
+              <p>适合实时性内容、问答和兼容接入场景。</p>
+              <div class="service-meta"><span>倍率 x0.7</span><strong>查看接入</strong></div>
+            </article>
+          </div>
+        </section>
+
+        <section class="lower">
+          <div class="section">
+            <div class="section-head">
+              <h2>最近动态</h2>
+              <span class="muted">调用、订单、订阅变化</span>
+            </div>
+            <div class="activity-list">
+              <div class="activity-item">
+                <div>
+                  <strong>Claude 调用完成</strong>
+                  <span class="muted">消耗 1.28M tokens</span>
+                </div>
+                <span class="muted">5 分钟前</span>
+              </div>
+              <div class="activity-item">
+                <div>
+                  <strong>充值订单已完成</strong>
+                  <span class="muted">余额增加 $20.00</span>
+                </div>
+                <span class="muted">今天 14:20</span>
+              </div>
+              <div class="activity-item">
+                <div>
+                  <strong>API Key 已创建</strong>
+                  <span class="muted">用于 Codex App 接入</span>
+                </div>
+                <span class="muted">昨天</span>
+              </div>
+            </div>
+          </div>
+
+          <aside class="section">
+            <div class="section-head">
+              <h2>公告</h2>
+            </div>
+            <div class="notice">
+              <div class="notice-item">
+                <strong>模型价格调整</strong>
+                <span class="muted">部分模型倍率将在本周更新，请关注订单和余额变化。</span>
+              </div>
+              <div class="notice-item">
+                <strong>接入提醒</strong>
+                <span class="muted">建议为不同应用创建独立 API Key，方便统计和停用。</span>
+              </div>
+            </div>
+          </aside>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>

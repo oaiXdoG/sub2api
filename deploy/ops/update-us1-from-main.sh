@@ -7,6 +7,9 @@ REPO_ROOT="$(cd "${SCRIPT_DIR}/../.." && pwd)"
 
 MAIN_BRANCH="${MAIN_BRANCH:-main}"
 WORK_BRANCH="${WORK_BRANCH:-my-main}"
+UPSTREAM_REMOTE="${UPSTREAM_REMOTE:-upstream}"
+UPSTREAM_URL="${UPSTREAM_URL:-git@github.com:Wei-Shaw/sub2api.git}"
+ORIGIN_REMOTE="${ORIGIN_REMOTE:-origin}"
 RUN_TESTS="${RUN_TESTS:-0}"
 
 log() {
@@ -41,9 +44,22 @@ fi
 start_branch="$(git branch --show-current)"
 log "当前分支: ${start_branch:-unknown}"
 
-log "切到 ${MAIN_BRANCH} 并拉取最新代码"
+if git remote get-url "${UPSTREAM_REMOTE}" >/dev/null 2>&1; then
+  log "使用上游仓库: ${UPSTREAM_REMOTE} ($(git remote get-url "${UPSTREAM_REMOTE}"))"
+else
+  log "添加上游仓库: ${UPSTREAM_REMOTE} -> ${UPSTREAM_URL}"
+  run git remote add "${UPSTREAM_REMOTE}" "${UPSTREAM_URL}"
+fi
+
+log "从官方仓库获取 ${UPSTREAM_REMOTE}/${MAIN_BRANCH}"
+run git fetch "${UPSTREAM_REMOTE}" "${MAIN_BRANCH}"
+
+log "更新本地 ${MAIN_BRANCH}"
 run git switch "${MAIN_BRANCH}"
-run git pull --ff-only
+run git merge --ff-only "${UPSTREAM_REMOTE}/${MAIN_BRANCH}"
+
+log "推送 ${MAIN_BRANCH} 到 Fork 仓库 ${ORIGIN_REMOTE}/${MAIN_BRANCH}"
+run git push "${ORIGIN_REMOTE}" "${MAIN_BRANCH}:${MAIN_BRANCH}"
 
 log "切回 ${WORK_BRANCH} 并合并 ${MAIN_BRANCH}"
 run git switch "${WORK_BRANCH}"
