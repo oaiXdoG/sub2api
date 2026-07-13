@@ -154,3 +154,36 @@ export INCLUDE_CERTS=1
 export INCLUDE_FRONTEND=1
 export KEEP_BACKUPS=10
 ```
+
+## 8. 清理垃圾账号
+
+直接运行交互式清理脚本：
+
+```bash
+./deploy/ops/cleanup-users.sh
+```
+
+脚本自动筛选同时满足以下条件的账号：
+
+1. 尚未删除的普通用户。
+2. 注册时间超过 7 天。
+3. 没有任何用量记录。
+4. 累计充值金额为 0。
+5. 从未登录，或者最后登录时间超过 7 天。
+6. 不在保护名单中；根据现有清理约定，默认保护用户 ID `6`。
+
+脚本会展示符合条件的账号、注册时间、最后登录时间和有效 API Key 数量，然后等待输入。只有输入 `y` 并回车才会删除；其他输入或直接回车都会取消，且不修改数据。
+
+确认后执行以下操作：API Key 写入删除审计并软删除、登录身份删除、用户软删除、认证缓存和刷新令牌清理。API Key 不属于豁免条件；用量、充值和订单历史继续保留用于审计。该流程不创建备份，也不处理 Nginx、防火墙或 IP 黑名单。
+
+默认阈值为 7 天，需要调整时使用：
+
+```bash
+INACTIVE_DAYS=14 ./deploy/ops/cleanup-users.sh
+```
+
+默认保护名单为 `6`，多个 ID 使用逗号分隔：
+
+```bash
+PROTECTED_USER_IDS=6,100 ./deploy/ops/cleanup-users.sh
+```
