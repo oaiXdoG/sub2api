@@ -70,10 +70,18 @@ merge_status=$?
 set -e
 
 if [ "${merge_status}" -ne 0 ]; then
-  printf '\n合并发生冲突，已停止。冲突文件如下：\n' >&2
+  printf '\nERROR: 合并发生冲突，更新工作流已退出。未推送 my-main，未构建，未部署。\n' >&2
+  printf '\n冲突状态：\n' >&2
+  git status --short >&2 || true
+  printf '\n冲突文件：\n' >&2
   git diff --name-only --diff-filter=U >&2 || true
-  printf '\n请手动处理冲突后执行 git add / git commit，再重新运行打包部署步骤。\n' >&2
-  exit "${merge_status}"
+  printf '\n冲突内容（HEAD=my-main，main=官方更新）：\n' >&2
+  git diff --cc >&2 || true
+  printf '\n解决方式：确认每个冲突文件应保留的内容，删除冲突标记，然后执行：\n' >&2
+  printf '  git add <冲突文件>\n' >&2
+  printf '  git commit\n' >&2
+  printf '确认解决完成后，重新运行完整发布脚本。\n' >&2
+  exit 2
 fi
 
 log "推送 ${WORK_BRANCH} 到 Fork 仓库 ${ORIGIN_REMOTE}/${WORK_BRANCH}"
