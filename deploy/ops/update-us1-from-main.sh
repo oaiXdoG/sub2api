@@ -76,6 +76,9 @@ if [ "${merge_status}" -ne 0 ]; then
   exit "${merge_status}"
 fi
 
+log "推送 ${WORK_BRANCH} 到 Fork 仓库 ${ORIGIN_REMOTE}/${WORK_BRANCH}"
+run git push "${ORIGIN_REMOTE}" "${WORK_BRANCH}:${WORK_BRANCH}"
+
 if [ "${RUN_TESTS}" = "1" ]; then
   log "运行测试"
   run make test
