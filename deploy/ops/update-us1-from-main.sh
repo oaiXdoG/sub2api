@@ -2,6 +2,9 @@
 
 set -euo pipefail
 
+# This script runs as one uninterrupted workflow; Git must never wait in less.
+export GIT_PAGER=cat
+
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(cd "${SCRIPT_DIR}/../.." && pwd)"
 
@@ -93,4 +96,4 @@ if [ "${RUN_TESTS}" = "1" ]; then
 fi
 
 log "更新完成，当前提交"
-git log --oneline -1
+git --no-pager log --oneline -1
