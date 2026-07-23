@@ -29,6 +29,7 @@ This directory contains files for deploying Sub2API on Linux servers and Apple-s
 | `config.example.yaml` | Example configuration file |
 | `ops/` | Host deployment build, release, backup, and restore scripts |
 | `ops/README.md` | Host deployment operational workflow |
+| `EDGE_SECURITY.md` | Reverse proxy, CDN/WAF, trusted proxy, and ingress hardening guide |
 
 ---
 
