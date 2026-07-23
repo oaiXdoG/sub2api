@@ -24,7 +24,7 @@
       <nav class="mx-auto flex max-w-6xl items-center justify-between gap-4">
         <div class="flex min-w-0 items-center gap-3">
           <div class="h-10 w-10 shrink-0 overflow-hidden rounded-xl border border-[#e3d5c4] bg-white shadow-sm dark:border-[#3a332d] dark:bg-[#1c1915]">
-            <img :src="siteLogo || '/logo.png'" alt="Logo" class="h-full w-full object-contain" />
+            <img :src="siteLogo || '/logo.svg'" alt="Logo" class="h-full w-full object-contain" />
           </div>
           <span class="truncate text-base font-semibold tracking-normal text-[#16130f] dark:text-white">
             {{ siteName }}
