@@ -1013,7 +1013,29 @@ func (s *APIKeyService) GetAvailableGroups(ctx context.Context, userID int64) ([
 		}
 	}
 
+	sortAvailableGroups(availableGroups)
+
 	return availableGroups, nil
+}
+
+func sortAvailableGroups(groups []Group) {
+	// 平台 -> 按量计费优先 -> 倍率升序；ID 仅用于完全同条件时稳定排序。
+	sort.Slice(groups, func(i, j int) bool {
+		left, right := groups[i], groups[j]
+		if left.Platform != right.Platform {
+			return left.Platform < right.Platform
+		}
+
+		leftSubscription := left.SubscriptionType == SubscriptionTypeSubscription
+		rightSubscription := right.SubscriptionType == SubscriptionTypeSubscription
+		if leftSubscription != rightSubscription {
+			return !leftSubscription
+		}
+		if left.RateMultiplier != right.RateMultiplier {
+			return left.RateMultiplier < right.RateMultiplier
+		}
+		return left.ID < right.ID
+	})
 }
 
 // canUserBindGroupInternal 内部方法，检查用户是否可以绑定分组（使用预加载的订阅数据）
